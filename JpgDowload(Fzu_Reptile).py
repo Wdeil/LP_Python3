@@ -11,8 +11,7 @@ import urllib.error
 import os
 
 
-# f = os.path.abspath('.')
-f = '/home/wdeil/Desktop/Date/Photograph'
+f = os.path.abspath('.') + '/Date/Photograph'
 
 url_base = 'http://59.77.226.32/xszp/{}/{}'
 college = format(int(input('Enter the college which you wish to download?')), '02d')
