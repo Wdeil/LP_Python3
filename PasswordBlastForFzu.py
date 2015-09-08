@@ -67,9 +67,10 @@ def Blasting(muser, dictionary):
 
 	else:
 		passwd = []
-		for x in range(32):
-			for y in range(10000):
-				passwd.append(format(x, '02d') + format(y, '04d'))
+		for x in range(32)[1:32]:
+			for y in range(1000):
+				for z in ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'x'):
+					passwd.append(format(x, '02d') + format(y, '04d') + z)
 		random.shuffle(passwd)
 
 		for user in muser:
