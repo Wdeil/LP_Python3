@@ -46,7 +46,7 @@ def Blasting():
 	t = -1
 
 	path = os.path.abspath('.')
-	r = open(path + '/result.txt', 'a')
+	r = open(path + '/BlastingResult.txt', 'a')
 
 	muser = []
 	fuser = []
