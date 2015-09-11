@@ -19,14 +19,14 @@ def MaleDictionary():
 	for x in range(1, 32):
 		for y in range(100):
 			for z in range(1, 10, 2):
-				for w in ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'x'):
+				for w in ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'X'):
 					yield (format(x, '02d') + format(y, '02d') + str(z) + w)
 
 def FemaleDictionary():
 	for x in range(1, 32):
 		for y in range(100):
 			for z in range(0, 10, 2):
-				for w in ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'x'):
+				for w in ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'X'):
 					yield (format(x, '02d') + format(y, '02d') + str(z) + w)
 
 
